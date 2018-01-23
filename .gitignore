@@ -1,2 +1,9 @@
 /config/__pycache__
 /model/__pycache__
+/testing.py
+/web
+/data/pss_client.cer
+/data/pss_pri.pem
+/data/private.pem
+/data/private.crt
+/data/crt.pem

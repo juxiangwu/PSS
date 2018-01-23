@@ -5,7 +5,7 @@ from config.appconfig import db
 from model.user import User
 
 # 添加数据
-#user1 = User("Jan","Guangzhou","13712346578","+86-020-12345678","400010","123456789","jan@iotservice.com","adeesdfde")
+#ser1 = User("Jan","Guangzhou","13712346578","+86-020-12345678","400010","123456789","jan@iotservice.com","adeesdfde")
 
 #db.session.add(user1)
 #db.session.commit()
