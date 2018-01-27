@@ -120,13 +120,22 @@ create table t_product_repertory(id int not null primary key auto_increment,
 # operator_id:操作员
 drop table if exists t_product_repertory_changed;
 create table t_product_repertory_changed(id int not null primary key auto_increment,
-		shop_id int,product_id int,sku_id int,changed_count int,changed_date date,changed_type int,
+		shop_id int,
+		product_id int,
+		sku_id int,
+		changed_count int,
+		changed_date date,
+		changed_type int,
 		operator_id int);
         
 # 创建部门
 drop table if exists t_department_info;
 create table t_department_info(id int not null primary key auto_increment,
-		shop_id int,name varchar(128),parent_id int,lft int,rgt int);
+		shop_id int,
+		name varchar(128),
+		parent_id int,
+		lft int,
+		rgt int);
         
 # 创建角色
 drop table if exists t_employee_role;
@@ -136,18 +145,27 @@ create table t_employee_role(id int not null primary key auto_increment,
 # 创建员工信息表
 drop table if exists t_employee_info;
 create table t_employee_info(id int not null primary key auto_increment,
-		shop_id int,name varchar(128),password varchar(1024),telephone varchar(16),
-		email varchar(512),department_id int,role_id int);
+		shop_id int,
+		name varchar(128),
+		password varchar(1024),
+		telephone varchar(16),
+		email varchar(512),
+		department_id int,
+		role_id int);
 
 # 创建员工权限表
 drop table if exists t_employee_authority;
 create table t_employee_authority(id int not null primary key auto_increment,
-		shop_id int,employee_id int,authority_id int);
+		shop_id int,
+		employee_id int,
+		authority_id int);
         
 # 创建角色权限
 drop table if exists t_role_authority;
 create table t_role_authority(id int not null primary key auto_increment,
-		shop_id int,name varchar(128),role_value int);
+		shop_id int,
+		name varchar(128),
+		role_value int);
         
 # 创建零售信息表
 # order_id:订单流水号
