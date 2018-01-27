@@ -21,5 +21,7 @@ class ProductCategory(db.Model):
         self.rgt = rgt
 
     def __repr__(self):
-        return '<ProductCategory@id=%d,name=%s,shopId=%d,parentId=%d>' % (self.id,self.name,self.shopId,self.parentId)
- 
+        if self.id:
+            return '<ProductCategory@id=%d,name=%s,shopId=%d,parentId=%d>' % (self.id,self.name,self.shopId,self.parentId)
+        else:
+            return '<ProductCategory@name=%s,shopId=%d,parentId=%d>' % (self.name,self.shopId,self.parentId)

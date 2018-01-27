@@ -27,5 +27,8 @@ class User(db.Model):
         self.password = password
 
     def __repr__(self):
-        return '<User@id=%d,name=%s>' % (self.id,self.name)
+        if self.id:
+            return '<User@id=%d,name=%s>' % (self.id,self.name)
+        else:
+            return '<User@name=%s>' % (self.name)
 

@@ -78,13 +78,13 @@ create table t_product_sku_info(id int not null primary key auto_increment,
 # shop_id:商店ID
 # product_id:商品ID
 # sku_id: SKU ID
-# product_prop_id:商品属性ID
+# product_prop_id:商品属性ID,组合形式:[1,2]
 drop table if exists t_product_sku_property;
 create table t_product_sku_property(id int not null primary key auto_increment,
 		shop_id int,
 		product_id int,
 		sku_id int,
-		product_prop_id int);
+		product_prop_id varchar(128));
         
 # 创建商品属性信息表
 # shop_id:商店ID

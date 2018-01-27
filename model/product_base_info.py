@@ -46,5 +46,7 @@ class ProductBaseInfo(db.Model):
         self.isEnabled = isEnabled
 
     def __repr__(self):
-        return '<ProductBaseInfo@id=%d,name=%s,shopId=%d,categoryId=%d>' %(self.id,self.name,self.shopId,self.categoryId)
-    
+        if self.id:
+            return '<ProductBaseInfo@id=%d,name=%s,shopId=%d,categoryId=%d>' %(self.id,self.name,self.shopId,self.categoryId)
+        else:
+            return '<ProductBaseInfo@name=%s,shopId=%d,categoryId=%d>' %(self.name,self.shopId,self.categoryId)

@@ -27,4 +27,7 @@ class Supplier(db.Model):
         self.userId = userId
 
     def __repr__(self):
-        return '<Supplier@id=%d,userId=%d,shopId=%d,name=%s>' % (self.id,self.userId,self.shopId,self.name)
+        if self.id:
+            return '<Supplier@id=%d,userId=%d,shopId=%d,name=%s>' % (self.id,self.userId,self.shopId,self.name)
+        else:
+            return '<Supplier@userId=%d,shopId=%d,name=%s>' % (self.userId,self.shopId,self.name)

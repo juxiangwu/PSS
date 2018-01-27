@@ -16,5 +16,7 @@ class ProductPropertyInfo(db.Model):
         self.propertyType = propertyType
 
     def __repr__(self):
-        return '<ProductPropertyInfo@id=%d,shopId=%d,productId=%d,propertyType=%d>' %(self.id,self.shopId,self.productId,self.propertyType)
-
+        if self.id :
+            return '<ProductPropertyInfo@id=%d,shopId=%d,productId=%d,propertyType=%d>' %(self.id,self.shopId,self.productId,self.propertyType)
+        else:
+            return '<ProductPropertyInfo@shopId=%d,productId=%d,propertyType=%d>' %(self.shopId,self.productId,self.propertyType)
