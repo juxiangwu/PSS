@@ -194,4 +194,9 @@ create table t_retail_detail(id int not null primary key auto_increment,
 # product_directly_sub:商品直减
 drop table if exists t_retail_item_detail;
 create table t_retail_item_detail(id int not null primary key auto_increment,
-		shop_id int,order_id int,product_id int,sku_id int,product_discount float,product_directly_sub float);
+		shop_id int,
+		order_id int,
+		product_id int,
+		sku_id int,
+		product_discount float,
+		product_directly_sub float);
