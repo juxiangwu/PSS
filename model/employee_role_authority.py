@@ -19,10 +19,10 @@ class EmployeeRoleAuthority(db.Model):
 
     def __repr__(self):
         if self.id:
-            return '<EmployeeRoleAuthority@id=%id,shopId=%d,name=%s,roleValue=%d>' %(
+            return '<EmployeeRoleAuthority@id=%d,shopId=%d,name=%s,roleValue=%d>' %(
                 self.id,self.shopId,self.name,self.roleValue)
-            else:
-                return '<EmployeeRoleAuthority@shopId=%d,name=%s,roleValue=%d>' % (
+        else:
+            return '<EmployeeRoleAuthority@shopId=%d,name=%s,roleValue=%d>' % (
                 self.shopId,self.name,self.roleValue)
 
     

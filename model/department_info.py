@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 
-# 创建部门
-
+# ????
 from config.appconfig import db
 
 class Department(db.Model):

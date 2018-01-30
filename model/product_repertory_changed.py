@@ -10,20 +10,24 @@ class ProductRepertoryChanged(db.Model):
     shopId = db.Column('shop_id',db.Integer)
     productId = db.Column('product_id',db.Integer)
     skuId = db.Column('sku_id',db.Integer)
-    changedDate = db.Column('changed_date',db.Datetime)
+    changedDate = db.Column('changed_date',db.DateTime)
     changedType = db.Column('changed_type',db.Integer)
     operatorId = db.Column('operator_id',db.Integer)
+    orderId = db.Column('order_id',db.Integer)
+    changedCount = db.Column('changed_count',db.Integer)
 
-    def __init__(self,shopId,productId,skuId,changedDate,changedType,operatorId):
+    def __init__(self,shopId,productId,skuId,changedDate,changedType,operatorId,orderId,changedCount):
         self.shopId = shopId
         self.productId = productId
         self.skuId = skuId
         self.changedDate = changedDate
         self.changedType = changedType
         self.operatorId = operatorId
+        self.orderId = orderId
+        self.changedCount = changedCount
 
     def __repr__(self):
         if self.id:
-            return '<ProductRepertoryChanged@id=%d,shopId=%d,productId=%d,skuId=%d>' % (self.id,self.shopId,self.productId,self.skuId)
+            return '<ProductRepertoryChanged@id=%d,shopId=%d,productId=%d,skuId=%d,orderId=%d,changedCount=%d>' % (self.id,self.shopId,self.productId,self.skuId,self.orderId,self.changedCount)
         else:
-            return '<ProductRepertoryChanged@shopId=%d,productId=%d,skuId=%d>' % (self.shopId,self.productId,self.skuId)
+            return '<ProductRepertoryChanged@shopId=%d,productId=%d,skuId=%d,orderId=%d,changedCount=%d>' % (self.shopId,self.productId,self.skuId,self.orderId,self.changedCount)

@@ -73,6 +73,14 @@ create table t_product_sku_info(id int not null primary key auto_increment,
 		product_id int,
 		sku_code varchar(128),
 		store_counts int);
+
+# 创建商品SKU分组信息表
+drop table if exists t_product_sku_property_group;
+create table t_product_sku_property_group(id int not null primary key auto_increment,
+		shop_id int,
+		product_id int,
+		name varchar(128));
+
         
 # 创建商品SKU属性信息表
 # shop_id:商店ID
@@ -97,8 +105,16 @@ create table t_product_property(id int not null primary key auto_increment,
 		shop_id int,
 		product_id int,
 		prop_type int,
+		prop_group_id int,
 		prop_name varchar(128),
 		prop_value varchar(1024));
+
+# 创建属性分组
+drop table if exists t_product_property_group;
+create table t_product_property_group(id int not null primary key auto_increment,
+	shop_id int,
+	product_id int,
+	name varchar(128));
         
 # 创建商品库存信息表
 # shop_id:商店ID
@@ -108,7 +124,10 @@ create table t_product_property(id int not null primary key auto_increment,
 # 当使用SKU时，total_counts表示单个商品的库存量
 drop table if exists t_product_repertory;
 create table t_product_repertory(id int not null primary key auto_increment,
-		shop_id int,product_id int,sku_id int,total_counts int);
+		shop_id int,
+		product_id int,
+		sku_id int,
+		total_counts int);
         
         
 # 创建商品库存变动信息表
@@ -123,8 +142,9 @@ create table t_product_repertory_changed(id int not null primary key auto_increm
 		shop_id int,
 		product_id int,
 		sku_id int,
+		order_id int,
 		changed_count int,
-		changed_date date,
+		changed_date datetime,
 		changed_type int,
 		operator_id int);
         
@@ -179,11 +199,21 @@ create table t_role_authority(id int not null primary key auto_increment,
 # order_real_price:订单实收金额
 # order_profit:订单利润
 # order_desc:订单描述
+# pay_type:支付方式：1:现金,2:银行卡,3:支付宝,4:微信,5:会员卡,6:组合支付
 drop table if exists t_retail_detail;
 create table t_retail_detail(id int not null primary key auto_increment,
-		order_id varchar(128),shop_id int,operator_id int,retail_type int,
-		retail_date datetime,order_total_price float,product_counts int,member_id int,
-		order_real_price float,order_profit float,order_desc varchar(1024));
+		order_id varchar(128),
+		shop_id int,
+		operator_id int,
+		retail_type int,
+		retail_date datetime,
+		order_total_price float,
+		product_counts int,
+		member_id int,
+		order_real_price float,
+		order_profit float,
+		pay_type int,
+		order_desc varchar(1024));
         
 # 创建零售详情表
 # shop_id:商店ID
@@ -199,4 +229,28 @@ create table t_retail_item_detail(id int not null primary key auto_increment,
 		product_id int,
 		sku_id int,
 		product_discount float,
-		product_directly_sub float);
+		product_directly_sub float,
+		pay_type int,
+		retail_price float);
+
+# 创建支付方式信息表
+# shop_id:商店ID
+# type_name:支付方式名称
+# type_value:支付方式值
+drop table if exists t_pay_type_info;
+create table t_pay_type_info(id int not null primary key auto_increment,
+		shop_id int,type_name varchar(128),type_value varchar(128));
+
+# 创建订单支付方式详情
+# shop_id:商店ID
+# order_id:订单ID
+# pay_type:支付方式
+# pay_value:支付金额
+# pay_date:支付日期
+drop table if exists t_order_pay_type_detail;
+create table t_order_pay_type_detail(id int not null primary key auto_increment,
+		shop_id int,
+		order_id int,
+		pay_type int,
+		pay_value float,
+		pay_date datetime);

@@ -4,7 +4,7 @@
 
 from config.appconfig import db
 
-class RetailOrderDetail(db.Model):
+class RetailItemDetail(db.Model):
     __tablename__ = 't_retail_item_detail'
     id = db.Column('id',db.Integer,primary_key = True)
     shopId = db.Column('shop_id',db.Integer)
@@ -13,9 +13,11 @@ class RetailOrderDetail(db.Model):
     skuId = db.Column('sku_id',db.Integer)
     productDiscount = db.Column('product_discount',db.Float)
     productDirectSub = db.Column('product_directly_sub',db.Float)
+    payType = db.Column('pay_type',db.Integer)
+    retailPrice = db.Column('retail_price',db.Float)
 
     def __init__(self,shopId,orderId,productId,skuId,
-            productDiscount,productDirectSub):
+            productDiscount,productDirectSub,payType,retailPrice):
 
         self.shopId = shopId
         self.orderId = orderId
@@ -23,6 +25,8 @@ class RetailOrderDetail(db.Model):
         self.skuId = skuId
         self.productDiscount = productDiscount
         self.productDirectSub = productDirectSub
+        self.payType = payType
+        self.retailPrice = retailPrice
 
     def __repr__(self):
         if self.id:

@@ -10,7 +10,7 @@ class ProductSKUProperty(db.Model):
     shopId = db.Column('shop_id',db.Integer)
     productId = db.Column('product_id',db.Integer)
     skuId = db.Column('sku_id',db.Integer)
-    productProperties = db.Column('property_prop_id',db.String(128))
+    productProperties = db.Column('product_prop_id',db.String(128))
 
     def __init__(self,shopId,productId,skuId,productProperties):
         self.shopId = shopId
