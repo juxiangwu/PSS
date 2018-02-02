@@ -14,8 +14,9 @@ class Supplier(db.Model):
     qq = db.Column('qq',db.String(16))
     shopId = db.Column('shop_id',db.Integer)
     userId = db.Column('owner_id',db.Integer)
+    email = db.Column('email',db.String(128))
 
-    def __init__(self,name,shopId,userId,address=None,mobilePhone=None,telephone=None,fax=None,qq=None):
+    def __init__(self,name,shopId,userId,address=None,mobilePhone=None,telephone=None,fax=None,qq=None,email=None):
         #self.id = 0
         self.name = name
         self.address = address
@@ -25,7 +26,8 @@ class Supplier(db.Model):
         self.qq = qq 
         self.shopId = shopId
         self.userId = userId
-
+        self.email = email
+        
     def __repr__(self):
         if self.id:
             return '<Supplier@id=%d,userId=%d,shopId=%d,name=%s>' % (self.id,self.userId,self.shopId,self.name)

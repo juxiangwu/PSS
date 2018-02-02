@@ -10,12 +10,14 @@ class EmployeeRoleAuthority(db.Model):
     shopId = db.Column('shop_id',db.Integer)
     name = db.Column('name',db.String(128))
     roleValue = db.Column('role_value',db.Integer)
+    authorityGroup = db.Column('authority_group_id',db.Integer)
 
 
-    def __init__(self,shopId,name,roleValue):
+    def __init__(self,shopId,name,roleValue,authorityGroup):
         self.shopId = shopId
         self.name = name
         self.roleValue = roleValue
+        self.authorityGroup = authorityGroup
 
     def __repr__(self):
         if self.id:

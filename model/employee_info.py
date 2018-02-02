@@ -14,10 +14,11 @@ class EmployeeInfo(db.Model):
     departmentId = db.Column('department_id',db.Integer)
     roleId = db.Column('role_id',db.Integer)
     shopId = db.Column('shop_id',db.Integer)
-    
+    isEnabled = db.Column('is_enabled',db.Boolean)
+
     def __init__(self,name,password,shopId,
                 roleId,departmentId,
-                telephone=None,email=None):
+                telephone=None,email=None,isEnabled=True):
         self.name = name
         self.shopId = shopId
         self.password = password
@@ -25,6 +26,7 @@ class EmployeeInfo(db.Model):
         self.departmentId = departmentId
         self.telephone = telephone
         self.email = email
+        self.isEnabled=isEnabled
 
     def __repr__(self):
         if self.id:

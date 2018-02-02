@@ -4,7 +4,7 @@
 
 from config.appconfig import db
 
-class EmployAuthority(db.Model):
+class EmployeeAuthority(db.Model):
     __tablename__ = 't_employee_authority'
     id = db.Column('id',db.Integer,primary_key=True)
     shopId = db.Column('shop_id',db.Integer)

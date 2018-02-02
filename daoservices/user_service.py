@@ -4,6 +4,7 @@
 
 from config.appconfig import db
 from model.user import User
+import datetime
 
 class UserService():
 
@@ -17,15 +18,16 @@ class UserService():
     def register(self,name,passowrd,address=None,phone=None,telephone=None,fax=None,qq=None,email=None):
         # 检查用户是否存在
         isUserNameExisted = User.query.filter_by(name=name).first()
-        isUserEmailExisted = User.query.filter_by(email = email).first()
-
         if isUserNameExisted:          
             return self.REGISTER_FAILED,self.USER_NAME_EXISTED
+
+        isUserEmailExisted = User.query.filter_by(email = email).first()
         if isUserEmailExisted:
             return self.REGISTER_FAILED,self.USER_EMAIL_EXISTED
-
+        
+        now = datetime.datetime.now()
         user = User(name=name,password=passowrd,address=address,phone=phone,
-                    telephone=telephone,fax=fax,qq=qq,email=email)
+                    telephone=telephone,fax=fax,qq=qq,email=email,changedDate=now)
         db.session.add(user)
         db.session.commit()
         return self.REGISTER_SUCCESS,user.id
@@ -48,44 +50,34 @@ class UserService():
     
     # 通过用户名查询用户信息
     def getUserByName(self,name):
-        user = User.query.filter_by(name=name)
+        user = User.query.filter_by(name=name).first()
         return user
 
     # 通过ID查询用户信息
     def getUserById(self,id):
-        user = User.query.filter_by(id=id)
+        user = User.query.filter_by(id=id).first()
         return user
 
     # 更新用户
     def updateUser(self,user):
-        oldUser = User.query.filter_by(id=user.id)
-        if oldUser.name != user.name and user.name:
-            isUserNameExisted = User.query.filter_by(name=user.name)
-            if isUserNameExisted:
+        oldUser = User.query.filter_by(id=user['id']).first()
+        
+        #print('oldUser:',oldUser)
+       
+        if oldUser.name != user['name'] and user['name']:
+            isNameExisted = User.query.filter_by(name = user['name']).first()
+           
+            if isNameExisted != None:
                 return self.REGISTER_FAILED,self.USER_NAME_EXISTED
-        if oldUser.email != user.email and user.email:
-            isUserEmailExisted = User.query.filter_by(email=user.email)
-            if isUserEmailExisted:
+        
+        if oldUser.email != user['email'] and user['email']:
+            isEmailExisted = User.query.filter_by(email=user['email']).first()
+            if isEmailExisted != None:
                 return self.REGISTER_FAILED,self.USER_EMAIL_EXISTED
-        data = {'id':user.id,'name':user.name,'email':user.email}
-
-        if user.password:
-            data['password'] = user.password
-        
-        if user.phone:
-            data['phone'] = user.phone
-        
-        if user.telephone:
-            data['telephone'] = user.telephone
-        
-        if user.fax:
-            data['fax'] = user.fax
-
-        if user.qq:
-            data['qq'] = user.qq
-        
-        if user.address:
-            data['address'] = user.address
-
-        print("UserService:updateUser:",data)
-        User.query.filter_by(id=user.id).update(data)
+        now = datetime.datetime.now()
+        user['changedDate'] = now
+        #print("UserService:updateUser:",user)
+        res = User.query.filter_by(id=user['id']).update(user)
+        db.session.commit()
+        # return res
+        return res

@@ -14,8 +14,9 @@ class User(db.Model):
     qq = db.Column(db.String(32))
     email = db.Column(db.String(128))
     password = db.Column(db.String(1024))
+    changedDate = db.Column('changed_date',db.DateTime)
 
-    def __init__(self,name,password=None,phone=None,address=None,telephone=None,fax=None,qq=None,email=None):
+    def __init__(self,name,changedDate,password=None,phone=None,address=None,telephone=None,fax=None,qq=None,email=None):
         #self.id = 0
         self.name = name
         self.address = address
@@ -25,6 +26,7 @@ class User(db.Model):
         self.qq = qq
         self.email = email
         self.password = password
+        self.changedDate = changedDate
 
     def __repr__(self):
         if self.id:

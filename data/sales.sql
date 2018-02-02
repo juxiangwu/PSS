@@ -3,22 +3,39 @@ create databae pss;
 use pss;
 # 创建用户信息表
 drop table if exists t_user;
-create table t_user(id int not null primary key auto_increment,name varchar(128),
-		address varchar(1024),phone varchar(16),telephone varchar(32),fax varchar(32),
-		qq varchar(32),email varchar(128),password varchar(1024));
+create table t_user(id int not null primary key auto_increment,
+		name varchar(128),
+		address varchar(1024),
+		phone varchar(16),
+		telephone varchar(32),
+		fax varchar(32),
+		qq varchar(32),
+		email varchar(128),
+		password varchar(1024),
+		changed_date datetime);
 # 创建商店信息表
 # name:商店名称
 # address:商店地址
 # owner_id:用户ID
 drop table if exists t_shop ;
-create table t_shop(id int not null primary key auto_increment,name varchar(128),
-		address varchar(1024),owner_id int);
+create table t_shop(id int not null primary key auto_increment,
+		name varchar(128),
+		address varchar(1024),
+		owner_id int,
+		changed_date datetime);
 
 # 创建供应商信息表
 drop table if exists t_supplier_info;
-create table t_supplier_info(id int not null primary key auto_increment,name varchar(128),
-		address varchar(1024),phone varchar(16),telephone varchar(32),fax varchar(32),
-		qq varchar(32),email varchar(128),shop_id int,owner_id int);
+create table t_supplier_info(id int not null primary key auto_increment,
+		name varchar(128),
+		address varchar(1024),
+		phone varchar(16),
+		telephone varchar(32),
+		fax varchar(32),
+		qq varchar(32),
+		email varchar(128),
+		shop_id int,
+		owner_id int);
         
 # 创建商品分类表
 # name:分类名称
@@ -171,7 +188,8 @@ create table t_employee_info(id int not null primary key auto_increment,
 		telephone varchar(16),
 		email varchar(512),
 		department_id int,
-		role_id int);
+		role_id int,
+		is_enabled bool);
 
 # 创建员工权限表
 drop table if exists t_employee_authority;
@@ -185,7 +203,14 @@ drop table if exists t_role_authority;
 create table t_role_authority(id int not null primary key auto_increment,
 		shop_id int,
 		name varchar(128),
-		role_value int);
+		role_value int,
+		authority_group_id int);
+
+# 创建角色权限分组
+drop table if exists t_role_authority_group;
+create table t_role_authority_group(id int not null primary key auto_increment,
+		shop_id int,
+		name varchar(128))
         
 # 创建零售信息表
 # order_id:订单流水号
