@@ -27,7 +27,7 @@ class ProductBaseInfo(db.Model):
     def __init__(self,shopId,name,code,barcode,pinyinCode,categoryId,
                 categoryName,unitName,puchasePrice,retailPrice,
                 wholesalePrice,supplierName,supplierId,createDateTime,
-                modifyDateTime,isEnabled):
+                modifyDateTime,isEnabled=True):
         self.shopId = shopId
         self.name = name
         self.code = code

@@ -10,11 +10,13 @@ class EmployeeAuthority(db.Model):
     shopId = db.Column('shop_id',db.Integer)
     employeeId = db.Column('employee_id',db.Integer)
     authorityId = db.Column('authority_id',db.Integer)
+    authorityGroupId = db.Column('authority_group_id',db.Integer)
 
-    def __init__(self,shopId,employeeId,authorityId):
+    def __init__(self,shopId,employeeId,authorityId,authorityGroupId):
         self.shopId = shopId
         self.employeeId = employeeId
         self.authorityId = authorityId
+        self.authorityGroupId = authorityGroupId
 
     def __repr__(self):
         if self.id:

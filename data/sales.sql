@@ -196,7 +196,8 @@ drop table if exists t_employee_authority;
 create table t_employee_authority(id int not null primary key auto_increment,
 		shop_id int,
 		employee_id int,
-		authority_id int);
+		authority_id int,
+		authority_group_id int);
         
 # 创建角色权限
 drop table if exists t_role_authority;

@@ -23,8 +23,8 @@ class ProductProperty(db.Model):
 
     def __repr__(self):
         if self.id :
-            return '<ProductProperty@id=%d,shopId=%d,productId=%d,productName=%s,productValue=%s,groupId=%d>' %(self.id,
+            return '<ProductProperty@id=%d,shopId=%d,productId=%d,propertyName=%s,propertyValue=%s,groupId=%d>' %(self.id,
                     self.shopId,self.productId,self.propertyName,self.propertyValue,self.groupId)
         else:
-            return '<ProductProperty@shopId=%d,productId=%d,productName=%s,productValue=%s,groupId=%d>' %(
+            return '<ProductProperty@shopId=%d,productId=%d,propertyName=%s,propertyValue=%s,groupId=%d>' %(
                     self.shopId,self.productId,self.propertyName,self.propertyValue,self.groupId)

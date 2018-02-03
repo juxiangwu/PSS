@@ -31,7 +31,7 @@ class DepartmentService():
         node = Department.query.filter_by(id=id).first()
         return node
 
-    def getRootNode(self,shopId):
+    def getRootNodes(self,shopId):
         res = Department.query.filter_by(shopId=shopId,parentId=-1).all()
         return res
 
@@ -42,12 +42,12 @@ class DepartmentService():
     def getAllChildNodes(self,shopId,parentId,children):
         #sql = 'select count(*) from t_department_info where shop_id=:shopId and parent_id=:parentId'
         #res = db.engine.execute(text(sql),shopId=shopId,parentId=parentId)
-        counts = Department.query.filter_by(shopId=shopId,parentId=parentId).count()
+        results = Department.query.filter_by(shopId=shopId,parentId=parentId).all()
         # for row in res:
         #     counts = row[0]
-        if counts == 0:
+        if results == None or len(results) == 0:
             return
-        results = Department.query.filter_by(shopId=shopId,parentId=parentId).all()
+        #results = Department.query.filter_by(shopId=shopId,parentId=parentId).all()
         for dp in results:
             children.append(dp)
             self.getAllChildNodes(shopId=shopId,parentId=dp.id,children=children)
