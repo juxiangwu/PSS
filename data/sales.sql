@@ -164,6 +164,18 @@ create table t_product_repertory_changed(id int not null primary key auto_increm
 		changed_date datetime,
 		changed_type int,
 		operator_id int);
+
+# 创建商品库存变动明细
+# shop_id:商店ID
+# record_id:变动记录ID，对应t_product_repertory_changed的ID
+# before_counts:变动前数量
+# after_counts:变动后数量
+drop table if exists t_product_repertory_changed_detail;
+create table t_product_repertory_changed_detail(id int not null primary key auto_increment,
+		shop_id int,
+		record_id int,
+		before_counts int,
+		after_counts int)
         
 # 创建部门
 drop table if exists t_department_info;

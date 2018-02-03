@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-# 零售详情
+# ????
 
 from config.appconfig import db
 

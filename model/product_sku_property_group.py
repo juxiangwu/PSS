@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-# SKU属性分组
+# ??SKU????
 
 from config.appconfig import db
 
