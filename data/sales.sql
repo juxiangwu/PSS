@@ -178,7 +178,7 @@ create table t_product_repertory_changed_detail(id int not null primary key auto
 		shop_id int,
 		record_id int,
 		before_counts int,
-		after_counts int)
+		after_counts int);
         
 # 创建部门
 drop table if exists t_department_info;
@@ -226,7 +226,7 @@ create table t_role_authority(id int not null primary key auto_increment,
 drop table if exists t_role_authority_group;
 create table t_role_authority_group(id int not null primary key auto_increment,
 		shop_id int,
-		name varchar(128))
+		name varchar(128));
         
 # 创建零售信息表
 # order_id:订单流水号
