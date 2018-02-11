@@ -9,11 +9,12 @@ class ProductCategoryDAO():
 
     def add(self,shopId,name,parentId,lft=-1,rgt=-1):
         if not shopId or not name or not parentId:
-            return Constants.REGSISTER_FAILED,Constants.INVALID_ARGS
+            print('ProductCategoryDAO:add invalid args',shopId,name,parentId)
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         isNameExisted = ProductCategory.query.filter_by(shopId=shopId,name=name).first()
         
         if isNameExisted:
-            return Constants.REGSISTER_FAILED,Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         
         pc = ProductCategory(name=name,shopId=shopId,parentId=parentId,lft=lft,rgt=rgt)
         db.session.add(pc)
@@ -47,28 +48,34 @@ class ProductCategoryDAO():
             self.getAllChildNodes(shopId=shopId,parentId=pc.id,nodes = nodes)
     
     def deleteNode(self,id):
+
         child = ProductCategory.query.filter_by(id=id).first()
-        res = db.session.delete(child)
-        db.session.commit()
-        return res
+        if child:
+            res = db.session.delete(child)
+            db.session.commit()
+            return res
+        return -1
 
     def deleteChildNodes(self,shopId,parentId):
         nodes = []
         self.getAllChildNodes(shopId=shopId,parentId=parentId,nodes=nodes)
-        for node in nodes:
-            self.deleteNode(id = node.id)
+        if len(nodes) > 0:
+            for node in nodes:
+                self.deleteNode(id = node.id)
+        
         return len(nodes)
 
     def update(self,newdata):
         if not newdata or not newdata['id'] or not newdata['shopId']:
-            return Constants.REGSISTER_FAILED,Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
 
-        olddata = ProductCategory.query.filter_by(id=newdata['id']).first()
+        olddata = ProductCategory.query.filter_by(id=int(newdata['id'])).first()
         if olddata.name != newdata['name'] and newdata['name']:
-            isNameExisted = ProductCategory.query.filter_by(name=newdata['name'],shopId=newdata['shopId']).first()
+            isNameExisted = ProductCategory.query.filter_by(name=newdata['name'],shopId=int(newdata['shopId'])).first()
             if isNameExisted:
-                return Constants.REGSISTER_FAILED,Constants.NAME_EXISTED
-        
-        res = ProductCategory.query.filter_by(id=newdata['id']).update(newdata)
+                # print('ProductCategoryDAO:update:name existed')
+                return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
+        # print('ProductCategoryDAO:update:start')
+        res = ProductCategory.query.filter_by(id=int(newdata['id'])).update(newdata)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res

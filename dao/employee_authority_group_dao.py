@@ -11,10 +11,10 @@ class EmployeeAuthorityGroupDAO():
     
     def add(self,name,shopId,authorityId):
         if not name or not shopId or not authorityId:
-            return Constants.REGSISTER_FAILED,Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         isNameExisted = EmployeeAuthorityGroup.query.filter_by(shopId=shopId,name=name).first()
         if isNameExisted:
-            return Constants.REGSISTER_FAILED,Constants.NAME_EXISTED
+            return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         eag = EmployeeAuthorityGroup(shopId=shopId,name=name,authorityId = authorityId)
         db.session.add(eag)
         db.session.commit()

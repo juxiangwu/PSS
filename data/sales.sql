@@ -1,4 +1,4 @@
-drop if exists databae pss;
+drop databae pss;
 create databae pss;
 use pss;
 # 创建用户信息表
@@ -12,15 +12,18 @@ create table t_user(id int not null primary key auto_increment,
 		qq varchar(32),
 		email varchar(128),
 		password varchar(1024),
+		code varchar(128),
 		changed_date datetime);
 # 创建商店信息表
 # name:商店名称
 # address:商店地址
 # owner_id:用户ID
+# code:店铺编码
 drop table if exists t_shop ;
 create table t_shop(id int not null primary key auto_increment,
 		name varchar(128),
 		address varchar(1024),
+		code varchar(128),
 		owner_id int,
 		changed_date datetime);
 

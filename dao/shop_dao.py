@@ -5,22 +5,24 @@
 from config.appconfig import db
 from model.user import User
 from model.shop import Shop
+from config.constants import Constants
+
 import datetime
 class ShopDAO():
-    REGISTER_SUCCESS = 0
-    REGISTER_FAILED = -1
-    SHOP_EXISTED = -2
-    INVALID_DATA = -3
+    # REGISTER_SUCCESS = 0
+    # REGISTER_FAILED = -1
+    # SHOP_EXISTED = -2
+    # INVALID_DATA = -3
 
-    def register(self,name,address,userId):
+    def add(self,name,userId,code,address=None):
         now = datetime.datetime.now()
-        shop = Shop(name=name,userId=userId,address = address,changedDate=now)
+        shop = Shop(name=name,userId=userId,address = address,changedDate=now,code=code)
         isExisted = Shop.query.filter_by(name=name,userId=userId).first()
         if isExisted:
-            return self.REGISTER_FAILED,self.SHOP_EXISTED
+            return Constants.REGISTER_FAILED,Constants.SHOP_EXISTED
         db.session.add(shop)
         db.session.commit()
-        return self.REGISTER_SUCCESS,shop.id
+        return Constants.REGISTER_FAILED,shop
 
     def getShopsByUserId(self,userId):
         shops = Shop.query.filter_by(userId=userId).all()
@@ -36,13 +38,13 @@ class ShopDAO():
 
     def updateShop(self,newshop):
         if newshop == None:
-            return self.REGISTER_FAILED,self.INVALID_DATA
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         oldshop = Shop.query.filter_by(id=newshop['id']).first()
 
         if oldshop.name != newshop['name'] and newshop['name']:
             isShopNameExisted = Shop.query.filter_by(name=newshop['name'],userId=newshop['id']).first()
             if isShopNameExisted != None:
-                return self.REGISTER_FAILED,self.SHOP_EXISTED
+                return Constants.REGISTER_FAILED,Constants.SHOP_EXISTED
         now = datetime.datetime.now()
         newshop['changedDate'] = now
         res = Shop.query.filter_by(id=newshop['id']).update(newshop)

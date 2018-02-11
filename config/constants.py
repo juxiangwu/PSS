@@ -3,11 +3,12 @@
 
 class Constants():
     REGISTER_SUCCESS = 0
-    REGSISTER_FAILED = -1
+    REGISTER_FAILED = -1
     NAME_EXISTED = -2
     INVALID_ARGS = -3
     BARCODE_EXISTED = -4
     PROP_VALUE_EXISTED = -5
+    SHOP_EXISTED = -6
 
     # 商品属性类型
     # SKU

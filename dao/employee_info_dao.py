@@ -3,13 +3,14 @@
 # 员工信息
 from config.appconfig import db
 from model.employee_info import EmployeeInfo
+from config.constants import Constants
 
 class EmployeeInfoDAO():
      
-    REGISTER_SUCCESS = 0
-    REGISTER_FAILED = -1
-    NAME_EXISTED = -2
-    INVALID_ARGS = -3
+    # REGISTER_SUCCESS = 0
+    # REGISTER_FAILED = -1
+    # NAME_EXISTED = -2
+    # INVALID_ARGS = -3
 
     def add(self,shopId,name,password,departmentId,roleId,telephone = None,
             email=None,isEnabled=True):
@@ -18,11 +19,11 @@ class EmployeeInfoDAO():
         isNameExisted = EmployeeInfo.query.filter_by(name=name,shopId=shopId,departmentId=departmentId).first()
 
         if isNameExisted:
-            return self.REGISTER_FAILED,self.NAME_EXISTED
+            return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         
         db.session.add(ei)
         db.session.commit()
-        return self.REGISTER_SUCCESS,ei
+        return Constants.REGISTER_SUCCESS,ei
 
     def remove(self,id):
         ei = EmployeeInfo.query.filter_by(id=id).first()

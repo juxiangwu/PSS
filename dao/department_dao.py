@@ -4,26 +4,27 @@
 from sqlalchemy.sql import text
 from config.appconfig import db
 from model.department_info import Department
+from config.constants import Constants
 
 class DepartmentDAO():
 
-    REGISTER_SUCCESS = 0
-    REGISTER_FAILED = -1
-    NAME_EXISTED = -2
-    INVALID_ARGS = -3
+    # REGISTER_SUCCESS = 0
+    # REGISTER_FAILED = -1
+    # NAME_EXISTED = -2
+    # INVALID_ARGS = -3
 
     def add(self,shopId,name,parentId,lft=-1,rgt=-1):
         department = Department(shopId=shopId,name=name,parentId=parentId,lft=lft,rgt=rgt)
         isNameExisted = Department.query.filter_by(name=name,shopId=shopId).first()
         if isNameExisted:
-            return self.REGISTER_FAILED,self.NAME_EXISTED
+            return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         db.session.add(department)
         db.session.commit()
-        return self.REGISTER_SUCCESS,department.id
+        return Constants.REGISTER_SUCCESS,department.id
 
     def addWithDepartment(self,department):
         if not department:
-            return self.REGISTER_FAILED,self.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         res = self.add(shopId = department.shopId,parentId=department.parentId,name = department.name)
         return res
     
@@ -66,13 +67,13 @@ class DepartmentDAO():
 
     def update(self,newnode):
         if not newnode:
-            return self.REGISTER_FAILED,self.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         node = Department.query.filter_by(id=newnode['id'])
         if node.name != newnode['name'] and newnode['name']:
             isNameExisted = Department.query.filter_by(name=newnode['name'],shopId=newnode['shopId'])
             if isNameExisted:
-                return self.REGISTER_FAILED,self.NAME_EXISTED
+                return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
 
         res = Department.query.filter_by(id=newnode['id']).update(newnode)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
