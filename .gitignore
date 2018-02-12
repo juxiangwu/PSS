@@ -25,3 +25,4 @@
 /.vscode
 /static
 /templates
+/config/appconfig.py
