@@ -60,7 +60,7 @@ class DepartmentService():
     def update(self,newdata):
         code,res = self.__dao.update(newdata)
         result = {}
-        print('update:',code,res)
+        # print('update:',code,res)
         if code == Constants.REGISTER_FAILED:
             result['success'] = False
             if res == Constants.NAME_EXISTED:

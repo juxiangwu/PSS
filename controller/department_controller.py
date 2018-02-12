@@ -5,7 +5,7 @@ from flask import request
 from config.constants import Constants
 from config.appconfig import app
 from config.message_cn import MessageConstants_CN
-from services.department_services import DepartmentService
+from services.department_service import DepartmentService
 
 @app.route('/query_department/<shopId>/<parentId>',methods=['GET'])
 def query_department(shopId,parentId):

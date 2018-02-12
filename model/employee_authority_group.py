@@ -9,11 +9,22 @@ class EmployeeAuthorityGroup(db.Model):
     name = db.Column('name',db.String(128))
     shopId = db.Column('shop_id',db.Integer)
     authorityId = db.Column('authority_id',db.Integer)
-
+    isLeaf = True
     def __init__(self,shopId,name,authorityId):
         self.shopId = shopId
         self.name = name
-        shop.authorityId = authorityId
+        self.authorityId = authorityId
+        self.isLeaf = True
+
+    def to_json(self):
+        return {
+            "id":self.id,
+            "name":self.name,
+            "shopId":self.shopId,
+            "authorityId":self.authorityId,
+            "leaf":True,
+            "text":self.name
+        }
 
     def __repr__(self):
         if self.id:

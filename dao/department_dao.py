@@ -66,11 +66,11 @@ class DepartmentDAO():
         return len(nodes)
 
     def update(self,newnode):
-        print('dao:',newnode)
+        # print('dao:',newnode)
         if not newnode:
             return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         node = Department.query.filter_by(id=newnode['id'])
-        print('dao',newnode['name'])
+        # print('dao',newnode['name'])
         if not node and node.name != newnode['name'] and newnode['name']:
             isNameExisted = Department.query.filter_by(name=newnode['name'],shopId=newnode['shopId'])
             if isNameExisted:
