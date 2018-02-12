@@ -55,7 +55,7 @@ Ext.define('PSS.view.product.ProductCategoryWin',{
             	items:[
             		{
             			xtype:'label',
-            			text:'店铺'
+            			text:'分类名称:'
             		},
             		{
             			xtype:'textfield',
@@ -87,7 +87,7 @@ Ext.define('PSS.view.product.ProductCategoryWin',{
             					datas.pid = -1;
             				}
             				//console.log(selectNode.pid,selectNode.name,selectNode.id)
-            				console.log(datas)
+            				// console.log(datas)
             				
             				me.productCategoryController.add(datas,function(result){
             					if(result.success){
