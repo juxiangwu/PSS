@@ -12,9 +12,7 @@ class ProductCategoryService():
         self.__dao = ProductCategoryDAO()
 
     def queryCategory(self,shopId,parentId):
-        # if parentId == -1:
-        #     nodes = self.__dao.getRootNodes(shopId=shopId,parentId=-1)
-        # else:
+        
         nodes = self.__dao.getChildNodes(shopId=shopId,parentId=parentId)
         jsonstr = []
         for node in nodes:
@@ -23,9 +21,7 @@ class ProductCategoryService():
                 node.isLeaf = True
             else:
                 node.isLeaf = False
-            # jstr = json.dumps(node,default=ProductCategory.to_json)
             jsonstr.append(node.to_json())
-        # jsonstr =  self.__nodes_to_json(nodes)
         total = len(nodes)
         res = "{\"datas\":" + json.dumps(jsonstr)+",\"total\":%d}" % (total)
         return res
@@ -55,7 +51,7 @@ class ProductCategoryService():
         self.__dao.deleteChildNodes(shopId=shopId,parentId=id)
         if id != -1:
             self.__dao.deleteNode(id=id)
-        # TODO:需要更新产品分类
+        # TODO:需要更新产品的分类信息
         result = {}
         result['success'] = True
         result['msg'] = MessageConstants_CN.MSG_OPERATE_SUCCESS
@@ -64,7 +60,6 @@ class ProductCategoryService():
     def update(self,newdata):
         print('update:newdata:',newdata)
         code,res = self.__dao.update(newdata)
-        print(code,res)
         result = {}
         if code == Constants.REGISTER_FAILED:
             result['success'] = False

@@ -55,7 +55,7 @@ Ext.define('PSS.view.product.ProductCategoryWin',{
             	items:[
             		{
             			xtype:'label',
-            			text:'店铺'
+            			text:'分类名称:'
             		},
             		{
             			xtype:'textfield',
@@ -87,11 +87,12 @@ Ext.define('PSS.view.product.ProductCategoryWin',{
             					datas.pid = -1;
             				}
             				//console.log(selectNode.pid,selectNode.name,selectNode.id)
-            				console.log(datas)
+            				// console.log(datas)
             				
             				me.productCategoryController.add(datas,function(result){
             					if(result.success){
             						treepanel.store.load();
+                                                me.selectedCategoryItem = null;
             					}else{
             						Ext.Msg.alert('添加商品分类','错误:'+result.msg);
             					}
@@ -120,7 +121,8 @@ Ext.define('PSS.view.product.ProductCategoryWin',{
 
             				me.productCategoryController.remove(datas,function(result){
             					if(result.success){
-            						treepanel.store.load()
+            						treepanel.store.load();
+                                                me.selectedCategoryItem = null;
             					}else{
             						Ext.Msg.alert('删除商品分类','错误:'+result.msg)
             					}
@@ -153,6 +155,7 @@ Ext.define('PSS.view.product.ProductCategoryWin',{
             				me.productCategoryController.update(datas,function(result){
             					if(result.success){
             						treepanel.store.load();
+                                                me.selectedCategoryItem = null;
             					}else{
             						Ext.Msg.alert('更新商品分类','错误:'+result.msg);
             					}
@@ -164,6 +167,7 @@ Ext.define('PSS.view.product.ProductCategoryWin',{
             			handler:function(){
             				var treepanel = Ext.getCmp('category-tree-panel');
             				treepanel.store.load()
+                                    me.selectedCategoryItem = null;
             			}
             		}
 

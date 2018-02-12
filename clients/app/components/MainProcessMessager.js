@@ -70,6 +70,7 @@ Ext.define('PSS.components.MainProcessMessager',{
 
 		ipc.on('open-department',function(event, arg){
 			console.log('open-department')
+			openWindow('department-win')
 		});
 
 		ipc.on('open-role',function(event, arg){

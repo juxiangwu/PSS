@@ -1,0 +1,28 @@
+Ext.define('PSS.store.DepartmentTreeStore',{
+	extend:'Ext.data.TreeStore',
+	requires:['Ext.data.TreeStore'],
+	xtype:'departmentstore',
+	fields:[
+		{name:'id'},
+		{name:'pid'},
+		{name:'shopId'},
+		{name:'text'},
+		{name:'leaf'},
+		{name:'name'}
+	],
+
+	proxy:{
+		type:'ajax',
+		url:require('./config.json').host+'/query_department/1/1',
+		reader:{
+			type:'json',
+			root:'datas',
+			totalProperty:'total'
+		}
+	},
+	root:{
+		text:'部门',
+		id:-1,
+		expanded:true
+	}
+})
