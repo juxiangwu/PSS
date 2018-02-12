@@ -13,10 +13,11 @@ Ext.define('PSS.store.DepartmentTreeStore',{
 
 	proxy:{
 		type:'ajax',
-		url:require('./config.json')+'/query_department/1/1',
+		url:require('./config.json').host+'/query_department/1/1',
 		reader:{
 			type:'json',
-			root:'datas'
+			root:'datas',
+			totalProperty:'total'
 		}
 	},
 	root:{

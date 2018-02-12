@@ -34,7 +34,7 @@ Ext.define('PSS.App', {
 
     getModules : function(){
         return [
-            new PSS.view.product.ProductCategoryWin()
+            new PSS.view.product.ProductCategoryWin(),
             new PSS.view.department.DepartmentWin()
            // new Desktop.VideoWindow(),
             //new Desktop.Blockalanche(),
@@ -62,6 +62,7 @@ Ext.define('PSS.App', {
                 model: 'Ext.ux.desktop.ShortcutModel',
                 data: [
                     { name: '商品分类', iconCls: 'product-32x32', module: 'product-category-win' },
+                    { name: '部门管理', iconCls: 'product-32x32', module: 'department-win' },
                    
                 ]
             }),

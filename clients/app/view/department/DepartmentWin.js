@@ -2,7 +2,7 @@ Ext.define('PSS.view.department.DepartmentWin',{
 	extend: 'Ext.ux.desktop.Module',
 	requires:[
 		'PSS.store.DepartmentTreeStore',
-		'PSS.controller.ProductCategoryController',
+		'PSS.controller.DepartmentController',
 		'Ext.tree.Panel',
 		'Ext.panel.Panel',
 		'Ext.toolbar.Toolbar'
@@ -14,18 +14,18 @@ Ext.define('PSS.view.department.DepartmentWin',{
 
 	createWindow:function(){
 		var me = this;
-		me.departmentController = Ext.create('PSS.controller.ProductCategoryController');
-		var desktop = me.getDesktop();
+		me.departmentController = Ext.create('PSS.controller.DepartmentController');
+		var desktop = me.app.getDesktop();
 		var win = desktop.getWindow('department-win');
 		if(win){
 			return win;
 		}
-		var treeStore = Ext.createWindow('PSS.store.DepartmentTreeStore');
+		var treeStore = Ext.create('PSS.store.DepartmentTreeStore');
 		win = desktop.createWindow({
 			id:'department-win',
 			title:'部门管理',
 			width:600,
-			height:800,
+			height:400,
 			iconCls:'product-16x16',
 			animCollapse:false,
 			border:false,
@@ -46,7 +46,7 @@ Ext.define('PSS.view.department.DepartmentWin',{
 			tbar:{
 				xtype:'toolbar',
 				items:[{
-					xtype:'label'
+					xtype:'label',
 					text:'部门名称:'
 
 				},{
@@ -77,6 +77,7 @@ Ext.define('PSS.view.department.DepartmentWin',{
 						me.departmentController.add(datas,function(result){
 							if(result.success){
 								treepanel.store.load();
+								me.selectedDepartmentItem = null;
 							}else{
 								Ext.Msg.alert('添加部门','错误:'+result.msg);
 							}
@@ -104,6 +105,7 @@ Ext.define('PSS.view.department.DepartmentWin',{
 						me.departmentController.remove(datas,function(result){
 							if(result.success){
 								treepanel.store.load();
+								me.selectedDepartmentItem = null;
 							}else{
 								Ext.Msg.alert('删除部门','错误:'+result.msg);
 							}
@@ -137,6 +139,7 @@ Ext.define('PSS.view.department.DepartmentWin',{
 						me.departmentController.update(datas,function(result){
 							if(result.success){
 								treepanel.store.load();
+								me.selectedDepartmentItem = null;
 							}else{
 								Ext.Msg.alert('更新部门','错误:'+result.msg);
 							}
@@ -147,6 +150,7 @@ Ext.define('PSS.view.department.DepartmentWin',{
 					text:'刷新',
 					handler:function(){
 						Ext.getCmp('department-manager-treepanel').store.load()
+						me.selectedDepartmentItem = null;
 					}
 				}]
 			}

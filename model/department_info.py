@@ -20,17 +20,20 @@ class Department(db.Model):
         self.parentId = parentId
         self.lft = lft
         self.rgt = rgt
-        s
+        self.isLeaf = False
+        
 
     def to_json(self):
+        print(self.name)
         return {
-            id: self.id,
-            name: self.name,
-            shopId: self.shopId,
-            parentId: self.parentId,
-            lft: self.lft,
-            rgt: self.rgt,
-            leaf: self.isLeaf
+            "id": self.id,
+            "name":self.name,
+            "shopId": self.shopId,
+            "parentId": self.parentId,
+            "lft": self.lft,
+            "rgt": self.rgt,
+            "leaf": self.isLeaf,
+            "text":self.name
         }
 
     def __repr__(self):

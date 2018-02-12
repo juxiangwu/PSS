@@ -31,7 +31,7 @@ Ext.define('PSS.controller.DepartmentController',{
 	},
 	update:function(datas,callback){
 		Ext.Ajax.request({
-			url:require('./config.json')+'/update_department'
+			url:require('./config.json').host+'/update_department',
 			method:'POST',
 			params:datas,
 			success:function(response,opts){

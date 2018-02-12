@@ -8,3 +8,5 @@ class MessageConstants_CN():
 
     MSG_SHOP_NAME_EXISTED = u'店铺[%s]已经存在'
     MSG_OPERATE_SUCCESS = u'操作成功'
+
+    MSG_DEPARTMENT_NAME_EXISTED = u'部门[%s]已经存在'

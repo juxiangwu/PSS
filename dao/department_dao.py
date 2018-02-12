@@ -20,7 +20,7 @@ class DepartmentDAO():
             return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         db.session.add(department)
         db.session.commit()
-        return Constants.REGISTER_SUCCESS,department.id
+        return Constants.REGISTER_SUCCESS,department
 
     def addWithDepartment(self,department):
         if not department:
@@ -66,14 +66,17 @@ class DepartmentDAO():
         return len(nodes)
 
     def update(self,newnode):
+        print('dao:',newnode)
         if not newnode:
             return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         node = Department.query.filter_by(id=newnode['id'])
-        if node.name != newnode['name'] and newnode['name']:
+        print('dao',newnode['name'])
+        if not node and node.name != newnode['name'] and newnode['name']:
             isNameExisted = Department.query.filter_by(name=newnode['name'],shopId=newnode['shopId'])
             if isNameExisted:
                 return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
 
         res = Department.query.filter_by(id=newnode['id']).update(newnode)
+        print('dao:res = ',res)
         db.session.commit()
         return Constants.REGISTER_SUCCESS,res

@@ -19,12 +19,12 @@ def query_category(shopId,parentId):
     
     if not node or not node.isdigit():
         res = pcs.queryCategory(shopId = shopId,parentId = -1)
-        print(res)
+        # print(res)
         return str(res)
     else:
         pid = int(node)
         res = pcs.queryCategory(shopId = shopId,parentId=pid)
-        print(res)
+        # print(res)
         return res
 @app.route('/add_category',methods=['POST'])
 def add_category():
@@ -85,6 +85,7 @@ def update_category():
         newdata['shopId'] = shopId
         newdata['name'] = name
         _,result = pcs.update(newdata)
+        print(result)
         return json.dumps(result)
     except Exception as ex:
         print('remove_category:',ex)
