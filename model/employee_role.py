@@ -14,6 +14,13 @@ class EmployeeRole(db.Model):
         self.shopId = shopId
         self.name = name
 
+    def to_json(self):
+        return{
+            "id":self.id,
+            "name":self.name,
+            "shopId":self.shopId
+        }
+
     def __repr__(self):
         if self.id:
             return '<EmployeeRole@id=%d,shopId=%d,name=%s>' % (

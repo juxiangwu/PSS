@@ -1,34 +1,31 @@
 # -*-coding:utf-8 -*-
-
-import json
-from dao.employee_authority_group_dao import EmployeeAuthorityGroupDAO
 from config.constants import Constants
 from config.message_cn import MessageConstants_CN
-
-class EmployeeAuthorityGroupService()
+from dao.employee_role_dao import EmployeeRoleDAO
+import json
+class EmployeeRoleService()
 
     def __init__(self):
-        self.__dao = EmployeeAuthorityGroupDAO()
+        self.__dao = EmployeeRoleDAO()
 
     def query(self,shopId):
-        results = self.__dao.getByShopId(shopId=shopId)
+        datas = self.__dao.getByShopId(shopId=shopId)
         jsonobjs = []
-        for result in results:
-            jsonobjs.append(results.to_json())
-        total = len(results)
-        res = "{\"datas\":" + json.dumps(results) +",\"total\":%d}" % (total)
+        total = len(datas)
+        for data in datas:
+            jsonobjs.append(data.to_json())
+        res = "{\"datas\":"+ json.dumps(jsonobjs) +",\"total\":%d}" % total
         return res
 
-
-    def add(self,shopId,name,authorityId):
-        code,res = self.__dao.add(shopId=shopId,name=name,authorityId=authorityId)
+    def add(self,shopId,name):
+        code,res = self.__dao.add(shopId=shopId,name=name)
         result = {}
         if code == Constants.REGISTER_FAILED:
             result['success'] = False
-            if res == Constants.NAME_EXISTED:
-                result['msg'] = MessageConstants_CN.MSG_AUTHORITY_GROUP_NAME_EXISTED % (name)
-            elif res == Constants.INVALID_ARGS:
+            if res == Constants.INVALID_ARGS:
                 result['msg'] = MessageConstants_CN.MSG_INVALID_ARGS
+            elif res == Constants.NAME_EXISTED:
+                result['msg'] = MessageConstants_CN.MSG_EMPLOYEE_ROLE_NAME_EXISTED % name
             else:
                 result['msg'] = MessageConstants_CN.MSG_INTER_ERROR
         else:
@@ -37,8 +34,8 @@ class EmployeeAuthorityGroupService()
         return result
 
     def remove(self,id):
-        code,res = self.__dao.remove(id=id)
-        # TODO:需要更新子权限的分组信息
+        code,res = self.__dao.remove(id)
+        # TODO:需要更新员工角色
         result = {}
         if code == Constants.REGISTER_FAILED:
             result['success'] = False
@@ -49,7 +46,7 @@ class EmployeeAuthorityGroupService()
         else:
             result['success'] = True
             result['msg'] = MessageConstants_CN.MSG_OPERATE_SUCCESS
-        return result
+        return res
 
     def update(self,newdata):
         code,res = self.__dao.update(newdata)
@@ -57,7 +54,7 @@ class EmployeeAuthorityGroupService()
         if code == Constants.REGISTER_FAILED:
             result['success'] = False
             if res == Constants.NAME_EXISTED:
-                result['msg'] = MessageConstants_CN.MSG_AUTHORITY_GROUP_NAME_EXISTED % newdata['name']
+                result['msg'] = MessageConstants_CN.MSG_EMPLOYEE_ROLE_NAME_EXISTED % newdata['name']
             elif res == Constants.INVALID_ARGS:
                 result['msg'] = MessageConstants_CN.MSG_INVALID_ARGS
             else:
@@ -66,4 +63,3 @@ class EmployeeAuthorityGroupService()
             result['success'] = True
             result['msg'] = MessageConstants_CN.MSG_OPERATE_SUCCESS
         return result
-

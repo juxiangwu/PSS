@@ -19,6 +19,14 @@ class EmployeeRoleAuthority(db.Model):
         self.roleValue = roleValue
         self.authorityGroup = authorityGroup
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "name":name,
+            "roleValue":self.roleValue,
+            "authorityGroupId":self.authorityGroup
+        }
+
     def __repr__(self):
         if self.id:
             return '<EmployeeRoleAuthority@id=%d,shopId=%d,name=%s,roleValue=%d>' %(

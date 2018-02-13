@@ -204,6 +204,7 @@ create table t_employee_info(id int not null primary key auto_increment,
 		email varchar(512),
 		department_id int,
 		role_id int,
+		code int,
 		is_enabled bool);
 
 # 创建员工权限表

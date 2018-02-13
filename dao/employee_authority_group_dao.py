@@ -30,15 +30,15 @@ class EmployeeAuthorityGroupDAO():
                 return Constants.NAME_EXISTED
         res = EmployeeAuthorityGroup.query.filter_by(id=newdata['id']).update(newdata)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def remove(self,id):
         if not id:
-            return Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         data = EmployeeAuthorityGroup.query.filter_by(id=id).first()
         res = db.session.delete(data)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def getById(self,id):
         if not id:
