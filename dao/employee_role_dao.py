@@ -12,7 +12,7 @@ class EmployeeRoleDAO():
             return Constants.INVALID_ARGS
         isNameExisted = EmployeeRole.query.filter_by(shopId=shopId,name=name).first()
         if isNameExisted:
-            return Constants.NAME_EXISTED
+            return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         
         er = EmployeeRole(shopId=shopId,name=name)
         db.session.add(er)
@@ -21,23 +21,24 @@ class EmployeeRoleDAO():
 
     def remove(self,id):
         if not id:
-            return Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         data = EmployeeRole.query.filter_by(id=id).first()
         db.session.delete(data)
         db.commit()
+        return Constants.REGISTER_SUCCESS,Constants.REGISTER_SUCCESS
 
     def update(self,newdata):
         if not newdata:
-            return Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         oldata = EmployeeRole.query.filter_by(id=newdata['id']).first()
         if oldata.name != newdata['name'] and newdata['name']:
             isNameExisted = EmployeeRole.query.filter_by(name=newdata['name'],shopId=newdata['shopId']).first()
             if isNameExisted:
-                return Constants.NAME_EXISTED
+                return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         
         res = EmployeeRole.query.filter_by(id=newdata['id']).update(newdata)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def getById(self,id):
         if not id:

@@ -4,6 +4,7 @@
 from config.appconfig import db
 from model.employee_info import EmployeeInfo
 from config.constants import Constants
+from sqlalchemy.sql import func
 
 class EmployeeInfoDAO():
      
@@ -40,11 +41,11 @@ class EmployeeInfoDAO():
                         departmentId=newEmployeeInfo['departmentId'],
                         name=newEmployeeInfo['name']).first()
             if isNameExisted:
-                return self.REGISTER_FAILED,self.NAME_EXISTED
+                return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         
         EmployeeInfo.query.filter_by(id=newEmployeeInfo['id']).update(newEmployeeInfo)
         db.session.commit()
-        return self.REGISTER_SUCCESS
+        return Constants.REGISTER_SUCCESS,Constants.REGISTER_SUCCESS
 
     def getById(self,id):
         ei = EmployeeInfo.query.filter_by(id=id).first()
@@ -57,3 +58,7 @@ class EmployeeInfoDAO():
     def getByShopId(self,shopId):
         eis = EmployeeInfo.query.filter_by(shopId = shopId).all()
         return eis
+        
+    def getMaxCode(self,shopId):
+        code = EmployeeInfo.query(func.max('code')).all()
+        return code
