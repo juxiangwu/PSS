@@ -296,3 +296,6 @@ create table t_order_pay_type_detail(id int not null primary key auto_increment,
 		pay_type int,
 		pay_value float,
 		pay_date datetime);
+
+drop table if exists t_pinyin;
+create table t_pinyin(id int not null primary key auto_increment,hanzi varchar(128),capital varchar(128));

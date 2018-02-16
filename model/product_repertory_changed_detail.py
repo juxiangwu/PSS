@@ -19,6 +19,15 @@ class ProductRepertoryChangedDetail(db.Model):
         self.beforeCounts = beforeCounts
         self.afterCounts = afterCounts
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "recordId":self.recordId,
+            "beforeCounts":self.beforeCounts,
+            "afterCounts":self.afterCounts
+        }
+
     def __repr__(self):
         if self.id:
             return '<ProductRepertoryChangedDetail@id=%d,shopId=%d,recordId=%d,beforeCounts=%d,afterCounts=%d>' % (

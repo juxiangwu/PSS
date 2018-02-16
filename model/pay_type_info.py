@@ -16,6 +16,14 @@ class PayTypeInfo(db.Model):
         self.typeName = typeName
         self.typeValue = typeValue
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "typeName":self.typeName,
+            "typeValue":self.typeValue
+        }
+
     def __repr__(self):
         if self.id:
             return '<PayTypeInfo@id=%d,shopId=%d,typeName=%s,typeValue=%s>' %(

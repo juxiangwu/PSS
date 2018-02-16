@@ -29,3 +29,11 @@ class ProductRepertoryChangedDAO():
         if not shopId or not productId or not changedType:
             return None
         
+        datas = ProductRepertoryChanged.query.filter_by(shopId=shopId,productId=productId,changedType=changedType).all()
+        return datas
+
+    def getById(self,id):
+        if not id:
+            return None
+        data = ProductRepertoryChanged.query.filter_by(id=id).first()
+        return data

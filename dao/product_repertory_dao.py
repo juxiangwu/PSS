@@ -18,10 +18,10 @@ class ProductRepertoryDAO():
     
     def update(self,newdata):
         if not newdata:
-            return Constants.INVALID_ARGS
+            return Constants.REGISTER_SUCCESS,Constants.INVALID_ARGS
         res = ProductRepertory.query.filter_by(newdata['id']).update(newdata)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def getById(self,id):
         if not id:

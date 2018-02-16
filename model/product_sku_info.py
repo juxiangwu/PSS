@@ -17,6 +17,15 @@ class ProductSKUInfo(db.Model):
         self.skuCode = skuCode
         self.storeCounts = storeCounts
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "productId":self.productId,
+            "skuCode":self.skuCode,
+            "storeCounts":self.storeCounts
+        }
+
     def __repr__(self):
         if self.id:
             return '<ProductSKUInfo@id=%d,shopId=%d,productId=%d,skuCode=%s,storeCounts=%d>' %(self.id,

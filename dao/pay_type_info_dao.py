@@ -22,15 +22,15 @@ class PayTypeInfoDAO():
 
     def update(self,newdata):
         if not newdata or not newdata['id'] or not newdata['shopId'] or not newdata['name']:
-            return Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         olddata = PayTypeInfo.query.filter_by(newdata['id']).first()
         if olddata.name != newdata['name'] and newdata['name']:
             isNameExisted = PayTypeInfo.query.filter_by(shopId=newdata['shopId'],name=newdata['name'])
             if isNameExisted:
-                return Constants.NAME_EXISTED
+                return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         res = PayTypeInfo.query.filter_by(id=newdata['id']).update(newdata)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def remove(self,id):
         if not id:
@@ -46,3 +46,9 @@ class PayTypeInfoDAO():
         data = PayTypeInfo.query.filter_by(id=id).first()
         return data
     
+    def getByShopId(self,shopId):
+        if not shopId:
+            return None
+        else:
+            datas = PayTypeInfo.query.filter_by(shopId=shopId).all()
+            return datas

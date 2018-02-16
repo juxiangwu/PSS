@@ -3,6 +3,7 @@
 # 商品基本信息表
 
 from config.appconfig import db
+import datetime
 
 class ProductBaseInfo(db.Model):
     __tablename__ = "t_product_base_info"
@@ -23,6 +24,8 @@ class ProductBaseInfo(db.Model):
     isEnabled = db.Column('is_enabled',db.Boolean)
     createDateTime = db.Column('create_datetime',db.DateTime)
     modifyDateTime = db.Column('modify_datetime',db.DateTime)
+
+    
     
     def __init__(self,shopId,name,code,barcode,pinyinCode,categoryId,
                 categoryName,unitName,puchasePrice,retailPrice,
@@ -44,6 +47,27 @@ class ProductBaseInfo(db.Model):
         self.createDateTime = createDateTime
         self.modifyDateTime = modifyDateTime
         self.isEnabled = isEnabled
+
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "name":self.name,
+            "code":self.code,
+            "barcode":self.barcode,
+            "pinyinCode":self.pinyinCode,
+            "categoryName":self.categoryName,
+            "categoryId":self.categoryId,
+            "unitName":self.unitName,
+            "purchasePrice":self.puchasePrice,
+            "retailPrice":self.retailPrice,
+            "wholesalePrice":self.wholesalePrice,
+            "supplierName":self.supplierName,
+            "supplierId":self.supplierId,
+            "isEnable":self.isEnabled,
+            "createDateTime":self.createDateTime.strftime("%Y-%m-%d %H:%M:%S"),
+            "modifyDateTime":self.modifyDateTime.strftime("%Y-%m-%d %H:%M:%S")
+        }
 
     def __repr__(self):
         if self.id:

@@ -77,6 +77,6 @@ class DepartmentDAO():
                 return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
 
         res = Department.query.filter_by(id=newnode['id']).update(newnode)
-        print('dao:res = ',res)
+        # print('dao:res = ',res)
         db.session.commit()
         return Constants.REGISTER_SUCCESS,res

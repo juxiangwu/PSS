@@ -21,6 +21,16 @@ class ProductProperty(db.Model):
         self.propertyValue = propertyValue
         self.groupId = groupId
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "propertyType":self.propertyType,
+            "propertyName":self.propertyName,
+            "propertyValue":self.propertyValue,
+            "groupId":self.groupId
+        }
+
     def __repr__(self):
         if self.id :
             return '<ProductProperty@id=%d,shopId=%d,productId=%d,propertyName=%s,propertyValue=%s,groupId=%d>' %(self.id,

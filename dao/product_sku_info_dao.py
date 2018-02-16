@@ -18,10 +18,10 @@ class ProductSKUInfoDAO():
 
     def update(self,newdata):
         if not newdata:
-            return Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         res = ProductSKUInfo.query.filter_by(id=newdata['id']).update(newdata)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def remove(self,id):
         if not id:

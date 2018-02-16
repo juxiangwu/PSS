@@ -18,6 +18,11 @@ class ProductPropertyDAO():
                             groupId = groupId).first()
         if isValueExisted:
             return Constants.REGSISTER_FAILED,Constants.PROP_VALUE_EXISTED
+
+        isPropExisted = ProductProperty.query.filter_by(shopId=shopId,productId=productId,propertyType=propertyType,propertyValue=propertyValue,groupId=groupId)
+        if not isPropExisted:
+            return Constants.REGISTER_FAILED,Constants.PROP_EXISTED
+        
         pp = ProductProperty(shopId=shopId,productId=productId,propertyType=propertyType,
                 propertyName=propertyName,propertyValue=propertyValue,groupId=groupId)
         db.session.add(pp)
@@ -30,11 +35,11 @@ class ProductPropertyDAO():
         data = ProductProperty.query.filter_by(id=id).first()
         res = db.session.delete(data)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def update(self,newdata):
         if not newdata:
-            return Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         olddata = ProductProperty.query.filter_by(id=newdata['id']).first()
         if olddata.propertyName == newdata['propertyName'] and newdata['propertyName']:
             isValueExisted = ProductProperty.query.filter_by(shopId=newdata['shopId'],
@@ -43,10 +48,16 @@ class ProductPropertyDAO():
                             propertyValue=newdata['propertyValue'],
                             groupId = newdata['groupId']).first()
             if isValueExisted:
-                return Constants.PROP_VALUE_EXISTED
+                return Constants.REGISTER_FAILED,Constants.PROP_VALUE_EXISTED
+        
+        isPropExisted = ProductProperty.query.filter_by(shopId=shopId,productId=productId,
+                                        propertyType=propertyType,propertyValue=propertyValue,groupId=groupId)
+        if not isPropExisted:
+            return Constants.REGISTER_FAILED,Constants.PROP_EXISTED
+        
         res = ProductProperty.query.filter_by(id=newdata['id']).update(newdata)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def getById(self,id):
         if not id:

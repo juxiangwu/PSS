@@ -26,6 +26,18 @@ class ProductRepertoryChanged(db.Model):
         self.orderId = orderId
         self.changedCount = changedCount
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "skuId":self.skuId,
+            "changedDate":self.changedDate.strftime("%Y-%m-%d %H:%M:%S"),
+            "changedType":self.changedType,
+            "operatorId":self.operatorId,
+            "orderId":self.orderId,
+            "changedCount":self.changedCount
+        }
+
     def __repr__(self):
         if self.id:
             return '<ProductRepertoryChanged@id=%d,shopId=%d,productId=%d,skuId=%d,orderId=%d,changedCount=%d>' % (self.id,self.shopId,self.productId,self.skuId,self.orderId,self.changedCount)

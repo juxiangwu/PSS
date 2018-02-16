@@ -9,6 +9,7 @@ class Constants():
     BARCODE_EXISTED = -4
     PROP_VALUE_EXISTED = -5
     SHOP_EXISTED = -6
+    PROP_EXISTED = -7
 
     # 商品属性类型
     # SKU

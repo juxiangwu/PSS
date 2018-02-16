@@ -16,6 +16,14 @@ class ProductSKUPropertyGroup(db.Model):
         self.productId = productId
         self.name = name
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "productId":self.productId,
+            "name":self.name
+        }
+
     def __repr__(self):
         if self.id:
             return '<ProductSKUPropertyGroup>@id=%d,shopId=%d,productId=%d,name=%s' %(

@@ -25,3 +25,4 @@ def generate_string(length=8):
 
 def generate_employee_code(base=1000):
     return base + 1
+

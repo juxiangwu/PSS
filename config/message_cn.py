@@ -14,3 +14,10 @@ class MessageConstants_CN():
     MSG_EMPLOYEE_NAME_EXISTED = u'该部门已经存在名称为[%s]的员工'
     MSG_EMPLOYEE_ROLE_NAME_EXISTED = u'角色[%s]已经存在'
     MSG_EMPLOYEE_AUTHORITY_NAME_EXISTED = u'权限[%s]已经存在'
+    MSG_PAY_TYPE_NAME_EXISTED = u'支付方式[%s]已经存在'
+    MSG_BARCODE_EXISTED = u'条形码[%s]已经存在'
+    MSG_PRODUCT_PROPERTY_NAME_EXISTED = '属性分组名称[%s]已经存在'
+    MSG_PROPERTY_NAME_EXISTED = '属性名称[%s]已经存在'
+    MSG_PROPERTY_VALUE_EXISTED = '属性值[%s]已经存在'
+    MSG_PROPERTY_EXISTED = '属性[%s],值[%s]已经存在'
+    

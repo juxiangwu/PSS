@@ -17,6 +17,15 @@ class ProductRepertory(db.Model):
         self.productId = productId
         self.skuId = skuId
         self.totalCounts = totalCounts
+    
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "productId":self.productId,
+            "skuId":self.skuId,
+            "totalCounts":self.totalCounts
+        }
 
     def __repr__(self):
         if self.id:

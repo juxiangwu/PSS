@@ -32,17 +32,24 @@ class ProductBaseInfoDAO():
     def update(self,newdata):
         now = datetime.datetime.now()
         newdata['modifyDateTime'] = now
+        olddata = ProductBaseInfo.query.filter_by(id=newdata['id']).first()
+
+        if not newdata['barcode'] and newdata['barcode'] != olddata['barcode']:
+            isBarcodeExisted = ProductBaseInfo.query.filter(shopId=newdata['shopId'],barcode=newdata['barcode'])
+            if isBarcodeExisted:
+                return Constants.REGISTER_FAILED,Constants.BARCODE_EXISTED
+
         res = ProductBaseInfo.query.filter_by(id=newdata['id']).update(newdata)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def remove(self,id):
         if not id:
-            return Constants.INVALID_ARGS
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
         data = ProductBaseInfo.query.filter_by(id=id).first()
         res = db.session.remove(data)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,res
 
     def getById(self,id):
         if not id:
