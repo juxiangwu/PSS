@@ -28,6 +28,19 @@ class RetailItemDetail(db.Model):
         self.payType = payType
         self.retailPrice = retailPrice
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "orderId":self.orderId,
+            "productId":self.productId,
+            "skuId":self.skuId,
+            "productDiscount":self.productDiscount,
+            "productDirectSub":self.productDirectSub,
+            "payType":self.payType,
+            "retailPrice":self.retailPrice
+        }
+
     def __repr__(self):
         if self.id:
             return '<RetailOrderDetail@id=%d,orderId=%d,productId=%d,skuId=%d,productDiscount=%f,productDirectSub=%f>' % (

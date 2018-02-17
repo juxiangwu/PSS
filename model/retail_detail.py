@@ -36,6 +36,21 @@ class RetailDetail(db.Model):
                 self.retailDate = retailDate
                 self.orderId = orderId
 
+    def to_json(self):
+        return {
+            "id":self.id,
+            "shopId":self.shopId,
+            "operatorId":self.operatorId,
+            "orderType":self.orderType,
+            "orderTotalPrice":self.orderTotalPrice,
+            "memberId":self.memberId,
+            "orderProfit":self.orderProfit,
+            "orderDescription":self.orderDescription,
+            "payType":self.payType,
+            "retailDate":self.retailDate.strftime("%Y-%m-%d %H:%M:%S"),
+            "orderId":self.orderId
+        }
+
     def __repr__(self):
         if self.id:
             return '<RetailOrderInfo@id=%d,shopId=%d,operatorId=%d,orderType=%d,orderTotalPrice=%f,productCount=%d,memberId=%d,orderRealTotalPrice=%f,orderProfit=%f,orderId=%s,orderDescription=%s>' %(

@@ -50,7 +50,6 @@ class ProductSKUPropertyGroupDAO():
     def getByProductId(self,shopId,productId):
         if not productId or not shopId:
             return None
-
         datas = ProductSKUPropertyGroup.query.filter_by(shopId=shopId,productId=productId).all()
         return datas
         
