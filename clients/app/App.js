@@ -17,7 +17,8 @@ Ext.define('PSS.App', {
         'PSS.Settings',
         'PSS.components.LevelDB',
         'PSS.view.product.ProductCategoryWin',
-        'PSS.view.department.DepartmentWin'
+        'PSS.view.department.DepartmentWin',
+        'PSS.product.PayTypeWin'
     ],
     host:'http://192.168.0.1.4:3000',
     init: function() {
@@ -35,7 +36,8 @@ Ext.define('PSS.App', {
     getModules : function(){
         return [
             new PSS.view.product.ProductCategoryWin(),
-            new PSS.view.department.DepartmentWin()
+            new PSS.view.department.DepartmentWin(),
+            new PSS.product.PayTypeWin()
            // new Desktop.VideoWindow(),
             //new Desktop.Blockalanche(),
             // new PSS.SystemStatus(),

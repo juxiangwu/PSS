@@ -5,6 +5,7 @@ from config.message_cn import MessageConstants_CN
 from dao.pay_type_info_dao import PayTypeInfoDAO
 import json
 
+
 class PayTypeInfoService():
     def __init__(self):
         self.__dao = PayTypeInfoDAO()
@@ -34,7 +35,7 @@ class PayTypeInfoService():
             if res == Constants.INVALID_ARGS:
                 result['msg'] = MessageConstants_CN.MSG_INVALID_ARGS
             elif res == Constants.NAME_EXISTED:
-                if newdata['typeName']
+                if newdata['typeName']:
                     result['msg'] = MessageConstants_CN.MSG_PAY_TYPE_NAME_EXISTED % newdata['typeName']
             else:
                 result['msg'] = MessageConstants_CN.MSG_INTER_ERROR
@@ -65,7 +66,7 @@ class PayTypeInfoService():
         total = len(datas)
         for data in datas:
             jsonobjs.append(data.to_json())
-        res = "{\"datas\":"+ json.dumps(datas) +",\"total\":%d}" % total
+        res = "{\"datas\":"+ json.dumps(jsonobjs) +",\"total\":%d}" % total
         return res
 
     def queryById(self,id):

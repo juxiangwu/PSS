@@ -89,6 +89,11 @@ Ext.define('PSS.components.MainProcessMessager',{
 			console.log('open-employee-authority')
 		});
 
+		ipc.on('open-paytype',function(event,arg){
+			console.log('open-paytype')
+			openWindow('paytype-win')
+		});
+
 		function openWindow(wid){
 			var module = app.getModule(wid)
 

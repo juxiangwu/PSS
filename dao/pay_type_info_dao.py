@@ -10,10 +10,11 @@ class PayTypeInfoDAO():
 
     def add(self,shopId,typeName,typeValue):
         if not shopId or not typeName or not typeValue:
-            return Constants.REGSISTER_FAILED,Constants.INVALID_ARGS
-        isNameExisted = PayTypeInfo.query.filter_by(shopId=shopId,typeName=typeName)
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
+        isNameExisted = PayTypeInfo.query.filter_by(shopId=shopId,typeName=typeName).first()
         if isNameExisted:
-            return Constants.REGSISTER_FAILED,Constants.NAME_EXISTED
+            print('name existed')
+            return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
 
         data = PayTypeInfo(shopId=shopId,typeName=typeName,typeValue=typeValue)
         db.session.add(data)
@@ -21,11 +22,11 @@ class PayTypeInfoDAO():
         return Constants.REGISTER_SUCCESS,data
 
     def update(self,newdata):
-        if not newdata or not newdata['id'] or not newdata['shopId'] or not newdata['name']:
+        if not newdata or not newdata['id'] or not newdata['shopId'] or not newdata['typeName']:
             return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
-        olddata = PayTypeInfo.query.filter_by(newdata['id']).first()
-        if olddata.name != newdata['name'] and newdata['name']:
-            isNameExisted = PayTypeInfo.query.filter_by(shopId=newdata['shopId'],name=newdata['name'])
+        olddata = PayTypeInfo.query.filter_by(id=newdata['id']).first()
+        if olddata.typeName != newdata['typeName'] and newdata['typeName']:
+            isNameExisted = PayTypeInfo.query.filter_by(shopId=newdata['shopId'],typeName=newdata['typeName']).first()
             if isNameExisted:
                 return Constants.REGISTER_FAILED,Constants.NAME_EXISTED
         res = PayTypeInfo.query.filter_by(id=newdata['id']).update(newdata)
@@ -34,11 +35,13 @@ class PayTypeInfoDAO():
 
     def remove(self,id):
         if not id:
-            return Constants.INVALID_ARGS
-        data = PayTypeInfo.query.filter_by(id=id)
-        res = db.session.delete(data)
+            return Constants.REGISTER_FAILED,Constants.INVALID_ARGS
+       
+        data = PayTypeInfo.query.filter_by(id=id).first()
+       
+        db.session.delete(data)
         db.session.commit()
-        return res
+        return Constants.REGISTER_SUCCESS,Constants.REGISTER_SUCCESS
 
     def getById(self,id):
         if not id:

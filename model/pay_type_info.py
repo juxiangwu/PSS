@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-# 支持方式
+# 支付方式
 
 from config.appconfig import db
 

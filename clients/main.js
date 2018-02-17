@@ -139,7 +139,13 @@ var menuTemplate = [{
 },{
   label:'数据报表'
 },{
-  label:'系统设置'
+  label:'系统设置',
+  submenu:[{
+    label:'支付方式',
+    click:function(){
+      mainWindow.webContents.send('open-paytype','new')
+    }
+  }]
 }];
 var menu = Menu.buildFromTemplate(menuTemplate);
 Menu.setApplicationMenu(menu);

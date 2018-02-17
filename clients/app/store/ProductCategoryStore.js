@@ -17,7 +17,7 @@ Ext.define('PSS.store.ProductCategoryStore',{
 	userId:Ext.util.Cookies.get('userId'),
 	proxy:{
 		type:'ajax',
-		url:'http://192.168.0.104:3000/query_category/1/1',
+		url:require('./config.json').host + '/query_category/'+ require('./config.json').userId + '/' +  + require('./shop.json').shops[0].id,
 		reader:{
 			type:'json',
 			root:'datas',
